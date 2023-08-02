@@ -1,0 +1,121 @@
+import 'package:flutter/material.dart';
+import 'package:layout/pages/galic.dart';
+import 'package:layout/pages/steak.dart';
+
+class HomePage extends StatefulWidget {
+  // const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // --------------------------------------------------ตัวแปรรรร----------------------------------------------------
+  var steak =
+      ('https://cdn.pixabay.com/photo/2017/11/10/15/04/steak-2936531_1280.jpg');
+  var garic =
+      ('https://media.istockphoto.com/id/1143864356/th/%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%96%E0%B9%88%E0%B8%B2%E0%B8%A2/%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%9C%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%84%E0%B8%97%E0%B8%A2.jpg?s=1024x1024&w=is&k=20&c=pOSbzilBwAqE-O-Ius7xQo7TQpU3szuwhs7a8VHPYYA=');
+  var page_galic = Galic();
+  var Page_steak = Steak();
+
+  // ---------------------------------------------------------------------------------------------------------------
+
+  @override
+  Widget build(BuildContext context) {
+    var scaffold = Scaffold(
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'F(00)D',
+              style: TextStyle(fontSize: 30, color: Colors.amber.shade50),
+            ),
+          ],
+        ),
+        backgroundColor: Colors.red.shade900,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(50),
+        child: ListView(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            MyBox('หมูกระเทียม', 'เรียนรู้วิธีการทำและสูตรการทำได้เลย', garic,
+                page_galic),
+            SizedBox(
+              height: 10,
+            ),
+            MyBox('สเต็ก', 'เรียนรู้วิธีการทำและสูตรการทำได้เลย', steak,
+                Page_steak),
+          ],
+        ),
+      ),
+    );
+    return scaffold;
+  }
+
+  //---------------------------------------------------- WIDGET MYBOX -----------------------------------------------------
+  Widget MyBox(
+    String title,
+    String subtitle,
+    String imageUrl,
+    var NextPage,
+  ) {
+    //---------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------- STRUCTURE OF CONTAINER -------------------------------------------
+    return Container(
+      // color: Color.fromARGB(255, 171, 224, 255), กรณีไม่มี decoration
+      height: 300,
+      decoration: BoxDecoration(
+        //color: Color.fromARGB(255, 171, 224, 255), กรณีมี decoration
+        borderRadius: BorderRadius.circular(20),
+        image: DecorationImage(
+          image: NetworkImage(imageUrl),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+              Colors.white70.withOpacity(0.1618), BlendMode.color),
+        ),
+      ),
+      //-----------------------------------------------------------------------------------------------------------
+
+      //------------------------------------- STRUCTURE OF DETAIL IN CONTAINER---------------------------------------------
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, //แนวหลัก
+        crossAxisAlignment: CrossAxisAlignment.center, //แนวรอง
+        // column แนวตั้ง
+        children: [
+          Text(
+            title,
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
+          Text(subtitle,
+              style: TextStyle(
+                fontSize: 15,
+              )),
+          SizedBox(height: 40),
+          //-------------------------------------- BUTTON ----------------------------------------------
+          TextButton(
+            onPressed: () {
+              print('Next Page');
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => NextPage));
+            },
+            //---------------------------------------------------------------------------------------------
+            child: Text(
+              'ทำกันเลย',
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.blue.shade900),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+// 'https://media.istockphoto.com/id/1143864356/th/%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%96%E0%B9%88%E0%B8%B2%E0%B8%A2/%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B8%9C%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%84%E0%B8%97%E0%B8%A2.jpg?s=1024x1024&w=is&k=20&c=pOSbzilBwAqE-O-Ius7xQo7TQpU3szuwhs7a8VHPYYA='
+// https://cdn.pixabay.com/photo/2017/11/10/15/04/steak-2936531_1280.jpg
